@@ -1,5 +1,5 @@
 {% set name = "streamlit-aggrid" %}
-{% set version = "0.3.3" %}
+{% set version = "0.3.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,39 +7,46 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d96edb102df98450f3b6bcf5a52b64e6ceef9678e82e2dba9cfef074e7f134ab
+  sha256: d4b776e4e7c2a91808744873843c8236065e263c22cc39e7267383ccc81486a3
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
   number: 0
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - pip
     - poetry
-    - python >=3.7,<4.0
+    - python
   run:
+    - python
     - pandas >=1.2
-    - python >=3.7,<4.0
     - python-decouple >=3.6
     - streamlit >=0.87.0
 
 test:
   imports:
     - st_aggrid
-  commands:
-    - pip check
   requires:
     - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/PablocFonseca/streamlit-aggrid
-  summary: Streamlit component implementation of ag-grid
   license: MIT
   license_file: LICENSE
+  license_family: MIT
+  summary: Streamlit component implementation of ag-grid
+  description: |
+    Streamlit component implementation of ag-grid
+  dev_url: https://github.com/PablocFonseca/streamlit-aggrid
+  doc_url: https://streamlit-aggrid.readthedocs.io
 
 extra:
   recipe-maintainers:
     - maxibor
     - timkpaine
+  skip-lints:
+    - missing_wheel
