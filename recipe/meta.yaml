@@ -1,5 +1,5 @@
 {% set name = "streamlit-aggrid" %}
-{% set version = "0.3.4" %}
+{% set version = "0.3.4.post3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d4b776e4e7c2a91808744873843c8236065e263c22cc39e7267383ccc81486a3
+  sha256: 0cb9332199e7735289a673efabc913e1a3466cc188bc025bec2c50c32ab1989a
 
 build:
   number: 0
@@ -22,9 +22,9 @@ requirements:
     - poetry
     - python
   run:
-    - python !=3.9.7
+    - python
     - pandas >=1.2
-    - python-decouple >=3.6
+    - python-decouple >=3.6,<4.0
     - streamlit >=0.87.0
 
 test:
