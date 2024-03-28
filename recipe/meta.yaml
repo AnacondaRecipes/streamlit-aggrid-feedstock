@@ -22,7 +22,7 @@ requirements:
     - poetry
     - python
   run:
-    - python
+    - python !=3.9.7
     - pandas >=1.2
     - python-decouple >=3.6,<4.0
     - streamlit >=0.87.0
