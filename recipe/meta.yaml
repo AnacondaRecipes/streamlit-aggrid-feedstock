@@ -1,39 +1,40 @@
 {% set name = "streamlit-aggrid" %}
-{% set version = "0.3.4.post3" %}
+{% set version = "1.1.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0cb9332199e7735289a673efabc913e1a3466cc188bc025bec2c50c32ab1989a
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_') }}-{{ version }}.tar.gz
+  sha256: cbc1f7ad15f25df3fc3ff17c4afd74df7accdd01ee3fea550a74c8c049338ea7
 
 build:
+  # Upstream specification python>=3.10
+  skip: True  # [py<310]
   number: 0
-  # poetry not available for py312
-  # streamlit not available for s390x
-  skip: true  # [py<38 or py>311 or s390x]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - pip
-    - poetry
+    - poetry-core >=1.0
     - python
   run:
     - python
-    - pandas >=1.2
-    - python-decouple >=3.6,<4.0
-    - streamlit >=0.87.0
+    - streamlit >=1.2
+    - pandas >=1.4.0
+    - python-decouple
 
 test:
   imports:
     - st_aggrid
   requires:
     - pip
+    - python
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
 about:
   home: https://github.com/PablocFonseca/streamlit-aggrid
